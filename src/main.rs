@@ -1,3 +1,5 @@
+use evdev::uinput::{VirtualDevice, VirtualDeviceBuilder};
+use evdev::AttributeSet;
 use std::borrow::Borrow;
 use tokio::fs::File;
 use tokio::io::{self, Result};
@@ -15,7 +17,7 @@ async fn main() -> Result<()> {
 
     // loop through listener for incomming connections.
     loop {
-        // for each received connection we create a task which consumes it
+        // for each received connection we create a task which consumes it.
 
         let (stream, _) = listener.accept().await?;
         tokio::spawn(async move {
@@ -29,6 +31,13 @@ async fn handle_device_request(stream: TcpStream) -> Result<()> {
     // spilt the stream into reader and writter
     let mut stream = stream;
     let (_rd, mut wr) = stream.split();
+
+    // create a virtual device on client
+    // let mut device = VirtualDeviceBuilder::new().unwrap()
+    // .name("mouse")
+    // .with_relative_axes(&AttributeSet::from_iter([
+    //     RelativeAxisCode::REL_X
+    // ])).unwrap()
 
     let mut _opened_file = File::open("/dev/input/event16").await?;
 

@@ -4,4 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+bitvec = "1.0.1"
+cfg-if = "1.0.0"
+evdev = { version = "0.12.2", features = ["futures-core"] }
+libc = { version = "0.2.153", features = ["extra_traits"] }
 tokio = { version = "1.37.0", features = ["full"] }
