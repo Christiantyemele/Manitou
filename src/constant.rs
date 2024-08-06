@@ -1,6 +1,6 @@
-use crate::compat::{
+use crate::{compat::{
     ABS_CNT, EV_CNT, FF_CNT, INPUT_PROP_CNT, LED_CNT, MSC_CNT, REL_CNT, SND_CNT, SW_CNT,
-};
+}, evdev_enum};
 
 /// Event types supported by the device.
 ///
@@ -9,7 +9,7 @@ use crate::compat::{
 /// This is implemented as a newtype around the u16 "type" field of `input_event`.
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]
 pub struct EventType(pub u16);
-
+mod attribute_set;
 evdev_enum!(
     EventType,
     Array,

@@ -15,7 +15,7 @@ async fn main() -> Result<()> {
 
     let listener = TcpListener::bind(address).await?;
 
-    // loop through listener for incomming connections.
+    // loop through listener for incoming connections.
     loop {
         // for each received connection we create a task which consumes it.
 
@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
     }
 }
 async fn handle_device_request(stream: TcpStream) -> Result<()> {
-    // spilt the stream into reader and writter
+    // spilt the stream into reader and writer
     let mut stream = stream;
     let (_rd, mut wr) = stream.split();
 
@@ -41,7 +41,7 @@ async fn handle_device_request(stream: TcpStream) -> Result<()> {
 
     let mut _opened_file = File::open("/dev/input/event16").await?;
 
-    // asynchronoulsy writting to writter in real time
+    // asynchronoulsy writing to writer in real time
     io::copy(&mut _opened_file, &mut wr).await?;
 
     Ok(())

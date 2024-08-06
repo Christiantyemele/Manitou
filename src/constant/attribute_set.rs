@@ -211,7 +211,7 @@ pub trait ArrayedEvdevEnum: EvdevEnum {
     fn array_as_buf(arr: &mut Self::Array) -> &mut [u8];
     fn zeroed_array() -> Self::Array;
 }
-
+#[macro_export]
 macro_rules! evdev_enum {
     ($t:ty, Array, $($(#[$attr:meta])* $c:ident = $val:expr,)*) => {
         evdev_enum!(
@@ -236,7 +236,7 @@ macro_rules! evdev_enum {
         Array: $Array:ty, $arr_as_buf:expr, $zero:expr,
         $($(#[$attr:meta])* $c:ident = $val:expr,)*
     ) => {
-        impl $crate::attribute_set::ArrayedEvdevEnum for $t {
+        impl $crate::constant::attribute_set::ArrayedEvdevEnum for $t {
             type Array = $Array;
             fn array_as_slice(arr: &Self::Array) -> &bitvec::slice::BitSlice<u8> {
                 arr
@@ -280,7 +280,7 @@ macro_rules! evdev_enum {
                 }
             }
         }
-        impl $crate::attribute_set::EvdevEnum for $t {
+        impl $crate::constant::attribute_set::EvdevEnum for $t {
             #[inline]
             fn from_index(i: usize) -> Self {
                 Self(i as _)
