@@ -6,7 +6,9 @@ edition = "2021"
 [dependencies]
 bitvec = "1.0.1"
 cfg-if = "1.0.0"
-evdev = { version = "0.12.2", features = ["futures-core"] }
+evdev = {version = "0.12.2", features = ["futures-core", "paste", "serde", "serde_1", "tokio", "tokio_1"]}
+futures = "0.3.30"
 libc = { version = "0.2.153", features = ["extra_traits"] }
 nix = "0.29.0"
+notify = "6.1.1"
 tokio = { version = "1.37.0", features = ["full"] }
