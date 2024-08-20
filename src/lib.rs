@@ -1,4 +1,3 @@
-use std::path::PathBuf;
 use std::sync::mpsc;
 
 use evdev::uinput::VirtualDeviceBuilder;
@@ -8,7 +7,6 @@ use tokio::fs::File;
 use tokio::io::{self, Result};
 use tokio::net::TcpStream;
 use tokio::spawn;
-use tokio::sync::watch::{self, Receiver, Sender};
 
 pub async fn handle_device_request(stream: TcpStream) -> Result<()> {
     // spilt the stream into reader and writer
@@ -16,8 +14,9 @@ pub async fn handle_device_request(stream: TcpStream) -> Result<()> {
     let (_rd, mut wr) = stream.split();
 
     // sample
-    let inputevent = InputEvent::new(EventType::UINPUT, 0xff67, 0);
-    let (tx, rx): (Sender<InputEvent>, Receiver<InputEvent>) = watch::channel(inputevent);
+    let _inputevent = InputEvent::new(EventType::UINPUT, 0xff67, 0);
+
+    let (tx, rx) = mpsc::channel();
 
     // Create virtual device on client
     let mut device = VirtualDeviceBuilder::new()
@@ -39,19 +38,26 @@ pub async fn handle_device_request(stream: TcpStream) -> Result<()> {
             for path in device.enumerate_dev_nodes_blocking().unwrap() {
                 let path = path.unwrap();
 
-                let mut watcher = RecommendedWatcher::new(tx, Config::default()).unwrap();
+                let mut watcher = RecommendedWatcher::new(tx.clone(), Config::default()).unwrap();
                 watcher.watch(&path, RecursiveMode::Recursive).unwrap();
             }
         }
     });
     // creating a task which will continuously check for new events in a non-blocking fashion
     spawn(async move {
-        loop {
-            for ev in rx {}
+        for ev in rx {
+            match ev {
+                // collect binary events from server, convert them to `hexadecimal code`, `bringout the i32 value`, `bring out the u16 type`
+                Ok(_) => {
+                    
+                }
+                Err(e) => {
+                    panic!("Error Reading Device File {e}")
+                }
+            }
         }
     });
 
-    // collect binary events from server, convert them to `hexadecimal code`, `bringout the i32 value`, `bring out the u16 type`
 
     // call th new method with the three inputs then emit them to the virtual device created on the client
     let mut _opened_file = File::open("/dev/input/event16").await?;
