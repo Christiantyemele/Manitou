@@ -1,20 +1,15 @@
 # Manitou
-
-Manitou is a device sharing software design for developpers and poeple working in teams or working simultaneosly on same task, or an individual working on multiple machines on the same network.
-
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+![manitou](./manitou.png)
+Manitou is a device sharing software design for developers and people working in teams or working simultaneously on same task, or an individual working on multiple machines on the same network.
 
 ## Installation
+-
 
 ### Prerequistics
-
+-
 ### Steps
-
+-
 ## Usage
-
+-
 ## Contributing
+-
