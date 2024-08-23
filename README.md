@@ -1,5 +1,7 @@
 # Manitou
-![manitou](./manitou.png)
+<p align="center">
+  <img src="./manitou.png" alt="alt text" />
+</p>
 Manitou is a device sharing software design for developers and people working in teams or working simultaneously on same task, or an individual working on multiple machines on the same network.
 
 ## Installation
