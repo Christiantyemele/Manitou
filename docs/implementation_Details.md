@@ -1,5 +1,5 @@
 # LINUX
-the initial target of manitou is for linux computers to be able to share peripheral devices among themselves (mouse, keyboard and screen)
+the initial target of manitou is for linux computers to be able to share peripheral devices among themselves (mouse, keyboard and screen) just as `lan mouse`, `any desk` or `team viewer`
 
 # Prerequistics
 - Linux filesystem and mostly /dev directory
@@ -40,4 +40,6 @@ Collect event ---> send event ---> process event ---> dispatch event
 We have a wayland client on the sharing computer which collects input events from the wayland compositor and sends it to the wayland compositor of the other computer
 through wifi
 the events should be sent accross clients on some certain conditions, e.g for a mouse event the event is send to a particular client depending on the predefined position of the pointer on the focus screen
- 
+
+## Steps
+- have a wayland client collecting events from the server

@@ -1,29 +1,20 @@
-use manitou::handle_device_request;
-use std::borrow::Borrow;
-use tokio::io::Result;
-use tokio::net::TcpListener;
+use wayland_client::Connection;
 
 #[tokio::main]
-async fn main() -> Result<()> {
-    // collecting the ip address for the communication as first passed argument
-    let mut address = std::env::args().nth(1).expect("expects a valid IP address");
-    let mode = std::env::args()
-        .nth(2)
-        .expect("second argument should specify if you are server or client e.g server or client");
-    address.push_str(":6935").borrow();
-    // todo give permissions to file and try reading in real time
+async fn main() {
 
-    let listener = TcpListener::bind(address).await?;
+    // create connection to wayland server
+    let conn = Connection::connect_to_env().unwrap();
 
-    // loop through listener for incoming connections.
-    loop {
-        // for each received connection we create a task which consumes it.
+    // retrieve display to compositor
+    let display = conn.display();
 
-        let (stream, _) = listener.accept().await?;
-        tokio::spawn(async move {
-            // handle file request
-            handle_device_request(stream).await.unwrap();
-        });
-        ()
-    }
+    // create event queuefor processing events
+    let event_queue = conn.new_event_queue();
+
+    // handle to event queue
+    let qh = event_queue.handle();
+
+    // start collecting events
+ 
 }
