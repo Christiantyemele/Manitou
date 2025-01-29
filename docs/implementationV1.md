@@ -35,11 +35,3 @@ device 2 creates a virtual device of the peripheral in questions and passes the 
 # Flow
 Collect event ---> send event ---> process event ---> dispatch event
 
-
-# wayland
-We have a wayland client on the sharing computer which collects input events from the wayland compositor and sends it to the wayland compositor of the other computer
-through wifi
-the events should be sent accross clients on some certain conditions, e.g for a mouse event the event is send to a particular client depending on the predefined position of the pointer on the focus screen
-
-## Steps
-- have a wayland client collecting events from the server
