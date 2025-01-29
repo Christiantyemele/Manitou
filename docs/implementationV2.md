@@ -1,4 +1,7 @@
 
+# Resources
+- https://wayland-book.com/libwayland
+
 # wayland
 The wayland protocol works by issuing `request` and `events` that act on `objects`. Each object has an interface which defines
 what requests and events are possible, and the signature of each (e.g one event the server can send regarding a wl_surface is `enter`, which it sends when that surface is being displayed on a specific output)
