@@ -12,3 +12,4 @@ libc = { version = "0.2.153", features = ["extra_traits"] }
 nix = "0.29.0"
 notify = "6.1.1"
 tokio = { version = "1.37.0", features = ["full"] }
+wayland-client = "0.31.7"
