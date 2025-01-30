@@ -3,15 +3,19 @@
 - https://wayland-book.com/libwayland
 
 # wayland
+## Overview
 The wayland protocol works by issuing `request` and `events` that act on `objects`. Each object has an interface which defines
-what requests and events are possible, and the signature of each (e.g one event the server can send regarding a wl_surface is `enter`, which it sends when that surface is being displayed on a specific output)
+what requests and events are possible, and the signature of each (e.g one event the server can send regarding a wl_surface is `enter`, which it sends when that surface is being displayed on a specific output). Upon POLLIN events call `wl_display_dispatch` to process incomming events. To flush outgoing requests, call `wl_display_flush`. using the `wl_compositor` you may send the server your windows for presentation, a wayland surface has a rectangular area which may be displayed on zero or more ouputs, present buffers, receive user input, and define a local coordinate system. To obtain a surface we first bind to the wl_compositor global, but before presenting the surface we must attach a source of pixel to it using `wl_buffer`, shared memory buffers is the simplest means of getting pixels from client to compositor and the only one enshrined in handling this `wl_shm` it simply allowsyou to transfer a file descriptor for the compositor to mmap(memory map) with MAP_SHARED, then share pixel buffers out of this pool. Add some simple synchronization primitives to keep everone from fighting over each buffer
 
 
 
 
 
 
-
+# Flow
+- Connecting to a wayland server and creating a `wl_display` to manage the connection's state
+- Create global objects and bind to each interfaces
+- Create a surface using compositor for rendering images from a shared memory buffer
 
 
 
